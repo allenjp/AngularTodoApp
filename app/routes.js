@@ -2,7 +2,7 @@
 var Todo = require('./models/todo');
 
 // expose the routes to our app with module.exports
-module.exports = function(app) {
+module.exports = function(app, passport) {
     // get all todos
     app.get('/api/todos', function(req, res) {
 
@@ -61,6 +61,11 @@ module.exports = function(app) {
         res.render('index.ejs', { message: req.flash('loginMessage') }); 
     });
     
+    app.get('/login', function(req, res) {
+        // render the page and pass in any flash data if it exists
+        res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    });
+    
     app.get('/todos', isLoggedIn, function(req, res) {
         res.sendfile('./public/todos.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
@@ -80,6 +85,20 @@ module.exports = function(app) {
         req.logout();
         res.redirect('/');
     });
+    
+    // process the signup form
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+    
+    // process the login form
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/todos', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 };
     
     // route middleware to make sure a user is logged in
