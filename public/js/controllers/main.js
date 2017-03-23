@@ -15,13 +15,13 @@ angular.module('todoController', [])
 
         // CREATE ==================================================================
         // when submitting the add form, send the text to the node API
-        $scope.createTodo = function() {
+        $scope.createTodo = function(id) {
 
             // validate the formData to make sure that something is there
             // if form is empty, nothing will happen
             // people can't just hold enter to keep adding the same to-do anymore
             if (!$.isEmptyObject($scope.formData)) {
-
+                $scope.formData.user_id = id;
                 // call the create function from our service (returns a promise object)
                 Todos.create($scope.formData)
 
