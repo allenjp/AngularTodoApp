@@ -67,7 +67,9 @@ module.exports = function(app, passport) {
     });
     
     app.get('/todos', isLoggedIn, function(req, res) {
-        res.sendfile('./public/todos.html'); // load the single view file (angular will handle the page changes on the front-end)
+        res.render('todos.ejs', {
+            user : req.user    
+        });
     });
     
     app.get('/signup', function(req, res) {
