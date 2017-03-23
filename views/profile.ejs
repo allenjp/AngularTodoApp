@@ -32,6 +32,20 @@
 
             </div>
         </div>
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <a href="todos"><h1>View your Todo List</h1></a>
+        </div>
 
     </div>
 

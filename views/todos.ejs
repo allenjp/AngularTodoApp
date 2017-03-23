@@ -21,7 +21,6 @@
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="core.js"></script>
     
     <script src="js/controllers/main.js"></script> <!-- load up our controller -->
     <script src="js/services/todos.js"></script> <!-- load our todo service -->
@@ -31,7 +30,22 @@
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
 <body ng-controller="mainController">
     <div class="container">
-
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <% if (!user) { %>
+                <li><a href="signup.ejs">Signup</a></li>
+                <li><a href="login.ejs">Login</a></li>
+            </ul>
+            <% } else { %>               
+                <li>
+                    <a href="profile"> 
+                        <%= user.local.email %>
+                        <img src="images/account.png" width="64" height="64">
+                    </a>
+                </li>
+            <% } %>
+            </ul>
+        </div>
         <!-- HEADER AND TODO COUNT -->
         <div class="jumbotron text-center">
             <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
