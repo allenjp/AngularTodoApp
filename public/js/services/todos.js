@@ -5,14 +5,14 @@ angular.module('todoService', [])
     // each function returns a promise object 
     .factory('Todos', function($http) {
         return {
-            get : function() {
-                return $http.get('/api/todos');
+            get : function(user_id) {
+                return $http.get('/api/todos/' + user_id);
             },
             create : function(todoData) {
                 return $http.post('/api/todos', todoData);
             },
-            delete : function(id) {
-                return $http.delete('/api/todos/' + id);
+            delete : function(deleteData) {
+                return $http.delete('/api/todos', deleteData);
             }
         }
     });

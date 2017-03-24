@@ -38,7 +38,7 @@
             </ul>
             <% } else { %>               
                 <li>
-                    <a href="profile"> 
+                    <a href="profile" ng-init="user_id = '<%= user._id %>'"> 
                         <%= user.local.email %>
                         <img src="images/account.png" width="64" height="64">
                     </a>
