@@ -123,6 +123,22 @@ module.exports = function(passport) {
                         });
                     }
                 });
+            } else {
+                // user already exists and is logged in, we have to link accounts
+                var user            = req.user; // pull the user out of the session
+
+                // update the current users facebook credentials
+                user.google.id    = profile.id;
+                user.google.token = token;
+                user.google.name  = profile.displayName;
+                user.google.email = profile.emails[0].value; // pull the first email
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, user);
+                });
             }
         });
 
