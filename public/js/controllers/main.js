@@ -39,8 +39,8 @@ angular.module('todoController', [])
         // DELETE ==================================================================
         // delete a todo after checking it
         // delete a todo after checking it
-        $scope.deleteTodo = function(id) {
-            $http.delete('/api/todos/' + id)
+        $scope.deleteTodo = function(todo_id) {
+            $http.delete('/api/todos/' + todo_id)
                     .success(function(data) {
                             $scope.todos = data;
                     })

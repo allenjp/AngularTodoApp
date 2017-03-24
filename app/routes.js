@@ -1,11 +1,12 @@
 // load the todo model
 var Todo = require('./models/todo');
+var user_id = "";
 
 // expose the routes to our app with module.exports
 module.exports = function(app, passport) {
     // get all todos
     app.get('/api/todos/:user_id', function(req, res) {
-        
+        user_id = req.params.user_id;
         // use mongoose to get all todos in the database
         Todo.find({user_id : req.params.user_id}, function(err, todos) {
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
@@ -18,7 +19,6 @@ module.exports = function(app, passport) {
 
     // create todo and send back all todos after creation
     app.post('/api/todos', function(req, res) {
-        console.log(JSON.stringify(req.body));
         var curr_user_id = req.body.user_id
         // create a todo, information comes from AJAX request from Angular
         Todo.create({
@@ -41,6 +41,7 @@ module.exports = function(app, passport) {
 
     // delete a todo
     app.delete('/api/todos/:todo_id', function(req, res) {
+        console.log('user id: ' + user_id);
         Todo.remove({
             _id : req.params.todo_id
         }, function(err, todo) {
@@ -48,7 +49,7 @@ module.exports = function(app, passport) {
                 res.send(err);
 
             // get and return all the todos after you create another
-            Todo.find(function(err, todos) {
+            Todo.find({user_id : user_id}, function(err, todos) {
                 if (err)
                     res.send(err)
                 res.json(todos);
