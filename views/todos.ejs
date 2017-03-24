@@ -36,11 +36,17 @@
                 <li><a href="signup.ejs">Signup</a></li>
                 <li><a href="login.ejs">Login</a></li>
             </ul>
-            <% } else { %>               
+            <% } else if  (user.local.email) { %>               
                 <li>
                     <a href="profile" ng-init="user_id = '<%= user._id %>'"> 
                         <%= user.local.email %>
                         <img src="images/account.png" width="64" height="64">
+                    </a>
+                </li>                
+            <% } else if (user.google.token) { %>
+                <li>
+                    <a href="profile" ng-init="user_id = '<%= user.google.token %>'"> 
+                        <%= user.google.email %>
                     </a>
                 </li>
             <% } %>
@@ -76,7 +82,11 @@
                     </div>
 
                     <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <% if  (user.local.email) { %>
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo('<%= user._id %>')">Add</button>
+                    <% } else if (user.google.token) { %>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo('<%= user.google.token %>')">Add</button>
+                    <% } %>
                 </form>
             </div>
         </div>

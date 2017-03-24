@@ -5,5 +5,5 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 module.exports = mongoose.model('Todo', {
     text : String,
     done : Boolean,
-    user_id : ObjectId
+    user_id : String
 });

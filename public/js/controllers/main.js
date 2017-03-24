@@ -10,6 +10,7 @@ angular.module('todoController', [])
             // GET =====================================================================
             // when landing on the page, get all todos and show them
             // use the service to get all the todos
+            
             Todos.get($scope.user_id)
                 .success(function(data) {
                     $scope.todos = data;
@@ -42,10 +43,10 @@ angular.module('todoController', [])
         $scope.deleteTodo = function(todo_id) {
             $http.delete('/api/todos/' + todo_id)
                     .success(function(data) {
-                            $scope.todos = data;
+                        $scope.todos = data;
                     })
                     .error(function(data) {
-                            console.log('Error: ' + data);
+                        console.log('Error: ' + data);
                     });
             };
     });
